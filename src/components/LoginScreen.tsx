@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import { auth, googleProvider } from '../firebaseConfig';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 interface LoginScreenProps {
   onLogin: () => void;
@@ -15,35 +13,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
     email: '',
     password: ''
   });
-  const [error, setError] = useState("");
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      if (isSignUp) {
-        await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      } else {
-        await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      }
-      onLogin();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      onLogin();
-    } catch (err: any) {
-      setError(err.message);
-    }
+    onLogin();
   };
 
   return (
@@ -57,8 +34,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
             {isSignUp ? 'Connect with fellow students' : 'Continue your learning journey'}
           </p>
         </div>
-
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {isSignUp && (
@@ -80,7 +55,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
               placeholder="Email (e.g., tulsi.gupta@college.edu)"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              required
               className="w-full pl-10 pr-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none transition-colors"
             />
           </div>
@@ -92,7 +66,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
               placeholder="Password"
               value={formData.password}
               onChange={(e) => handleInputChange('password', e.target.value)}
-              required
               className="w-full pl-10 pr-12 py-3 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none transition-colors"
             />
             <button
@@ -123,7 +96,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           </div>
 
           <button
-            onClick={handleGoogleLogin}
+            onClick={onLogin}
             className="w-full mt-4 py-3 bg-white border border-gray-200 rounded-xl font-semibold text-gray-700 shadow-sm hover:shadow-md transition-shadow flex items-center justify-center space-x-2"
           >
             <div className="w-5 h-5 bg-gradient-to-r from-red-400 to-blue-400 rounded"></div>
@@ -145,3 +118,4 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 };
 
 export default LoginScreen;
+          
