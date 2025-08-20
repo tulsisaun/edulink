@@ -1,0 +1,16 @@
+const renderScreen = () => {
+  switch (currentScreen) {
+    case "home":
+      return <HomeScreen onNavigate={setCurrentScreen} />;
+    case "search":
+      return <SearchScreen onNavigate={setCurrentScreen} />;
+    case "chat":
+      return <ChatScreen onNavigate={setCurrentScreen} />;
+    case "profile":
+      return <ProfileScreen onNavigate={setCurrentScreen} />;
+    case "groupstudy": // 👈 ye add karo
+      return <GroupStudyScreen onNavigate={setCurrentScreen} />;
+    default:
+      return <HomeScreen onNavigate={setCurrentScreen} />;
+  }
+};
