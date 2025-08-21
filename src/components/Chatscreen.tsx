@@ -195,6 +195,3 @@ const ChatScreen: React.FC = () => {
 };
 
 export default ChatScreen;
-
-
-
