@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 interface LoginScreenProps {
-  onLogin: () => void;
+  onLogin: (userType: 'student' | 'tutor') => void;
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [userType, setUserType] = useState<'student' | 'tutor'>('student');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,7 +21,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin();
+    onLogin(userType);
   };
 
   return (
@@ -33,6 +34,35 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           <p className="text-gray-600">
             {isSignUp ? 'Connect with fellow students' : 'Continue your learning journey'}
           </p>
+        </div>
+
+        {/* User Type Selection */}
+        <div className="mb-6">
+          <p className="text-sm font-semibold text-gray-700 mb-3">I am a:</p>
+          <div className="flex bg-gray-100 rounded-xl p-1">
+            <button
+              type="button"
+              onClick={() => setUserType('student')}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-colors ${
+                userType === 'student'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              Student (Need Help)
+            </button>
+            <button
+              type="button"
+              onClick={() => setUserType('tutor')}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-colors ${
+                userType === 'tutor'
+                  ? 'bg-white text-teal-600 shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              Tutor (Offer Help)
+            </button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,7 +109,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-purple-400 to-teal-400 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-shadow"
+            className={`w-full py-3 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-shadow ${
+              userType === 'student' 
+                ? 'bg-gradient-to-r from-purple-400 to-blue-400' 
+                : 'bg-gradient-to-r from-teal-400 to-green-400'
+            }`}
           >
             {isSignUp ? 'Create Account' : 'Sign In'}
           </button>
@@ -96,7 +130,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           </div>
 
           <button
-            onClick={onLogin}
+            onClick={() => onLogin(userType)}
             className="w-full mt-4 py-3 bg-white border border-gray-200 rounded-xl font-semibold text-gray-700 shadow-sm hover:shadow-md transition-shadow flex items-center justify-center space-x-2"
           >
             <div className="w-5 h-5 bg-gradient-to-r from-red-400 to-blue-400 rounded"></div>
@@ -118,4 +152,3 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 };
 
 export default LoginScreen;
-          
