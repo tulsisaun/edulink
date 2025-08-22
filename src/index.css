@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Web Responsive Styles */
+@layer base {
+  html {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
+@layer components {
+  /* Mobile-first responsive container */
+  .app-container {
+    @apply w-full max-w-sm mx-auto bg-white min-h-screen relative overflow-hidden;
+  }
+
+  /* ...rest of your styles... */
+}

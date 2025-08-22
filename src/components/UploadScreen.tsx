@@ -26,19 +26,51 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    // Show success message
+    alert('Post created successfully! 🎉');
+    // Navigate back to home
     onNavigate('home');
   };
 
+  const fillDummyData = () => {
+    if (postType === 'request') {
+      setFormData({
+        title: 'Need help with Calculus Integration',
+        description: 'I am struggling with integration by parts and substitution methods. Need someone to explain step by step with examples. I have my exam next week.',
+        subject: 'Mathematics',
+        budget: '300',
+        deadline: '2024-02-15T18:00',
+        tags: 'calculus, integration, doubt clearing, urgent',
+        attachments: []
+      });
+    } else {
+      setFormData({
+        title: 'Mathematics Tutoring - Calculus Expert',
+        description: 'I am a 4th year B.Tech student from IIT Bombay. I can help with calculus, algebra, and statistics. I have 2+ years of tutoring experience.',
+        subject: 'Mathematics',
+        budget: '250',
+        deadline: '2024-02-20T20:00',
+        tags: 'math tutor, calculus, algebra, experienced',
+        attachments: []
+      });
+    }
+  };
+
   return (
-    <div className="h-screen bg-gray-50 pb-20">
+    <div className="h-screen bg-gray-50 overflow-y-auto">
       {/* Header */}
-      <div className="bg-white p-4 pt-12 shadow-sm">
+      <div className="bg-white p-4 pt-12 shadow-sm sticky top-0 z-10">
         <div className="flex items-center space-x-3 mb-4">
           <button onClick={() => onNavigate('home')}>
             <ArrowLeft className="text-gray-600" size={24} />
           </button>
           <h1 className="text-xl font-bold text-gray-800">Share Knowledge</h1>
+          <button
+            onClick={fillDummyData}
+            className="ml-auto bg-blue-500 text-white px-3 py-1 rounded-lg text-xs font-semibold"
+          >
+            Fill Demo
+          </button>
         </div>
 
         {/* Post Type Toggle */}
@@ -70,7 +102,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="p-4 space-y-5">
+      <form onSubmit={handleSubmit} className="p-4 space-y-5 pb-24">
         {/* Title */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -82,6 +114,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
             value={formData.title}
             onChange={(e) => handleInputChange('title', e.target.value)}
             className="w-full px-4 py-4 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none"
+            required
           />
         </div>
 
@@ -92,6 +125,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
             value={formData.subject}
             onChange={(e) => handleInputChange('subject', e.target.value)}
             className="w-full px-4 py-4 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none"
+            required
           >
             <option value="">Select Subject</option>
             {subjects.map((subject) => (
@@ -112,6 +146,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
             onChange={(e) => handleInputChange('description', e.target.value)}
             rows={4}
             className="w-full px-4 py-4 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none resize-none"
+            required
           />
         </div>
 
@@ -131,8 +166,12 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
               value={formData.budget}
               onChange={(e) => handleInputChange('budget', e.target.value)}
               className="w-full pl-8 pr-4 py-4 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none"
+              min="50"
+              max="5000"
+              required
             />
           </div>
+          <p className="text-xs text-gray-500 mt-1">Range: ₹50 - ₹5000</p>
         </div>
 
         {/* Deadline/Timeline */}
@@ -148,6 +187,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onNavigate }) => {
             value={formData.deadline}
             onChange={(e) => handleInputChange('deadline', e.target.value)}
             className="w-full px-4 py-4 bg-white rounded-xl border border-gray-200 focus:border-purple-400 focus:outline-none"
+            required
           />
         </div>
 
