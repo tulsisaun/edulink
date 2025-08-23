@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, TrendingUp, Star, MapPin, BookOpen, Users, Calculator, Zap, Trophy, Clock } from 'lucide-react';
+import { Search, Bell, TrendingUp, Star, MapPin, BookOpen, Users, Calculator, Zap, Trophy, Clock, Calendar, BarChart3, Target, Video, Bot, GraduationCap } from 'lucide-react';
 import { Screen } from '../App';
 
 interface HomeScreenProps {
@@ -18,7 +18,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate, userType }) => {
     { icon: BookOpen, label: 'Study Notes', color: 'bg-blue-100 text-blue-600' },
     { icon: Users, label: 'Group Study', color: 'bg-purple-100 text-purple-600' },
     { icon: Calculator, label: 'Math Help', color: 'bg-teal-100 text-teal-600' },
-    { icon: Search, label: userType === 'student' ? 'Find Tutor' : 'Find Students', color: 'bg-orange-100 text-orange-600' }
+    { icon: Search, label: userType === 'student' ? 'Find Tutor' : 'Find Students', color: 'bg-orange-100 text-orange-600' },
+    { icon: Calendar, label: 'Study Planner', color: 'bg-indigo-100 text-indigo-600' },
+    { icon: BarChart3, label: 'Grade Tracker', color: 'bg-green-100 text-green-600' },
+    { icon: Target, label: 'Mock Tests', color: 'bg-red-100 text-red-600' },
+    { icon: Bot, label: 'AI Tutor', color: 'bg-purple-100 text-purple-600' }
   ];
 
   return (
@@ -98,12 +102,47 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate, userType }) => {
           <h2 className="text-lg font-semibold text-gray-800 mb-4 md:text-xl">Quick Actions</h2>
           <div className="grid grid-cols-2 gap-3">
             {[
-              ...quickLinks,
-              { icon: Users, label: 'College Advisory', color: 'bg-green-100 text-green-600' }
+              ...quickLinks.slice(0, 4),
+              { icon: GraduationCap, label: 'College Advisory', color: 'bg-green-100 text-green-600' },
+              { icon: Trophy, label: 'Achievements', color: 'bg-yellow-100 text-yellow-600' },
+              { icon: MapPin, label: 'Campus Map', color: 'bg-teal-100 text-teal-600' },
+              { icon: BookOpen, label: 'Digital Library', color: 'bg-emerald-100 text-emerald-600' }
             ].map((link, index) => (
               <button
                 key={index}
-                onClick={() => onNavigate(link.label === 'College Advisory' ? 'advisory' : 'search')}
+                onClick={() => {
+                  if (link.label === 'College Advisory') onNavigate('advisory');
+                  else if (link.label === 'Study Planner') onNavigate('study-planner');
+                  else if (link.label === 'Grade Tracker') onNavigate('grade-tracker');
+                  else if (link.label === 'Mock Tests') onNavigate('mock-test');
+                  else if (link.label === 'AI Tutor') onNavigate('ai-tutor');
+                  else if (link.label === 'Achievements') onNavigate('achievements');
+                  else if (link.label === 'Campus Map') onNavigate('campus-map');
+                  else if (link.label === 'Digital Library') onNavigate('digital-library');
+                  else onNavigate('search');
+                }}
+                className="bg-white p-4 rounded-xl card-shadow flex flex-col items-center space-y-3 hover:card-shadow-hover transition-all duration-200 hover-lift"
+              >
+                <div className={`w-14 h-14 rounded-full ${link.color} flex items-center justify-center`}>
+                  <link.icon size={24} />
+                </div>
+                <span className="text-sm font-semibold text-gray-700">{link.label}</span>
+              </button>
+            ))}
+          </div>
+          
+          {/* Additional Features Row */}
+          <div className="grid grid-cols-2 gap-3 mt-3">
+            {quickLinks.slice(4).map((link, index) => (
+              <button
+                key={index + 4}
+                onClick={() => {
+                  if (link.label === 'Study Planner') onNavigate('study-planner');
+                  else if (link.label === 'Grade Tracker') onNavigate('grade-tracker');
+                  else if (link.label === 'Mock Tests') onNavigate('mock-test');
+                  else if (link.label === 'AI Tutor') onNavigate('ai-tutor');
+                  else onNavigate('search');
+                }}
                 className="bg-white p-4 rounded-xl card-shadow flex flex-col items-center space-y-3 hover:card-shadow-hover transition-all duration-200 hover-lift"
               >
                 <div className={`w-14 h-14 rounded-full ${link.color} flex items-center justify-center`}>

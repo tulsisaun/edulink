@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { ArrowLeft, Wallet, CreditCard, Smartphone, Plus, TrendingUp, TrendingDown } from 'lucide-react';
 import { Screen } from '../App';
 
-interface PaymentScreenProps {
+interface PaymentscreenProps {
   onNavigate: (screen: Screen) => void;
 }
 
-const PaymentScreen: React.FC<PaymentScreenProps> = ({ onNavigate }) => {
+const Paymentscreen: React.FC<PaymentscreenProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState<'wallet' | 'transactions'>('wallet');
   
   const balance = 1250;
@@ -216,4 +216,4 @@ const PaymentScreen: React.FC<PaymentScreenProps> = ({ onNavigate }) => {
   );
 };
 
-export default PaymentScreen;
+export default Paymentscreen;

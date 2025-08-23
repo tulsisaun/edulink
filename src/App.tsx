@@ -15,8 +15,16 @@ import AdminPanel from './components/AdminPanel';
 import AdvisoryChat from './components/AdvisoryChat';
 import AdminLogin from './components/AdminLogin';
 import SuperAdminPanel from './components/SuperAdminPanel';
+import StudyPlannerScreen from './components/StudyPlannerScreen';
+import GradeTrackerScreen from './components/GradeTrackerScreen';
+import MockTestScreen from './components/MockTestScreen';
+import VideoCallScreen from './components/VideoCallScreen';
+import AchievementScreen from './components/AchievementScreen';
+import DigitalLibraryScreen from './components/DigitalLibraryScreen';
+import AITutorScreen from './components/AITutorScreen';
+import CampusMapScreen from './components/CampusMapScreen';
 
-export type Screen = 'splash' | 'login' | 'home' | 'search' | 'upload' | 'chat' | 'profile' | 'payment' | 'tutor-admin' | 'student-admin' | 'notifications' | 'admin' | 'advisory' | 'admin-login' | 'super-admin';
+export type Screen = 'splash' | 'login' | 'home' | 'search' | 'upload' | 'chat' | 'profile' | 'payment' | 'tutor-admin' | 'student-admin' | 'notifications' | 'admin' | 'advisory' | 'admin-login' | 'super-admin' | 'study-planner' | 'grade-tracker' | 'mock-test' | 'video-call' | 'achievements' | 'digital-library' | 'ai-tutor' | 'campus-map';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('splash');
@@ -76,6 +84,22 @@ function App() {
         return <AdminLogin onLogin={handleAdminLogin} onBack={() => setCurrentScreen('login')} />;
       case 'super-admin':
         return <SuperAdminPanel onNavigate={navigateToScreen} onLogout={handleAdminLogout} />;
+      case 'study-planner':
+        return <StudyPlannerScreen onNavigate={navigateToScreen} />;
+      case 'grade-tracker':
+        return <GradeTrackerScreen onNavigate={navigateToScreen} />;
+      case 'mock-test':
+        return <MockTestScreen onNavigate={navigateToScreen} />;
+      case 'video-call':
+        return <VideoCallScreen onNavigate={navigateToScreen} />;
+      case 'achievements':
+        return <AchievementScreen onNavigate={navigateToScreen} />;
+      case 'digital-library':
+        return <DigitalLibraryScreen onNavigate={navigateToScreen} />;
+      case 'ai-tutor':
+        return <AITutorScreen onNavigate={navigateToScreen} />;
+      case 'campus-map':
+        return <CampusMapScreen onNavigate={navigateToScreen} />;
       default:
         return <HomeScreen onNavigate={navigateToScreen} userType={userType} />;
     }

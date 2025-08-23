@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Search, Plus, MessageCircle, User } from 'lucide-react';
+import { Home, Search, Plus, MessageCircle, User, Trophy, Bot } from 'lucide-react';
 import { Screen } from '../App';
 
 interface BottomNavigationProps {
@@ -11,7 +11,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ currentScreen, onNa
   const navItems = [
     { screen: 'home' as Screen, icon: Home, label: 'Home' },
     { screen: 'search' as Screen, icon: Search, label: 'Search' },
-    { screen: 'upload' as Screen, icon: Plus, label: 'Share' },
+    { screen: 'ai-tutor' as Screen, icon: Bot, label: 'AI Tutor' },
     { screen: 'chat' as Screen, icon: MessageCircle, label: 'Chat' },
     { screen: 'profile' as Screen, icon: User, label: 'Profile' }
   ];
